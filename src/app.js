@@ -14,12 +14,12 @@ var r = [
   {
   risk:'Moderate',
   bd:'Take precautions, such as covering up, if you will be outside. Stay in shade near midday when the sun is strongest.',
-    clr:'#FFFF00'
+  clr:'#FFFF00'
 },
   {
   risk:'High',
   bd:'Cover the body with sun protective clothing, use SPF 30+ sunscreen, wear a hat, reduce time in the sun within three hours of solar noon, and wear sunglasses.',
-    clr:'#FF5500'
+  clr:'#FF5500'
 },
   {
   risk:'Very high',
@@ -43,9 +43,14 @@ function showCard(_locationData, _uv){
   else if (_uv <= 7.9) {uvData=r[2];}
   else if (_uv <= 10.9) {uvData=r[3];}
   else if (_uv >= 11) {uvData=r[4];}
+    
+  var titleLocation = _locationData.region_name + ' ' + _locationData.city;  
+  if (_locationData.region_name === '' && _locationData.city === ''){    
+    titleLocation = _locationData.country_name + ' ' + _locationData.latitude.toString() + ' ' + _locationData.longitude.toString();
+  }  
   
   var card = new UI.Card({
-  title: _locationData.region_name + ' ' + _locationData.city,
+  title: titleLocation,
   //icon: 'images/menu_icon.png',
   subtitle: 'UV:' + _uv + ' ' + uvData.risk,
   body: uvData.bd,
